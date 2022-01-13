@@ -1,0 +1,196 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="CONSULTORIOModelStoreContainer" CdmEntityContainer="CONSULTORIOEntities1">
+    <EntitySetMapping Name="CITA">
+      <EntityTypeMapping TypeName="CONSULTORIOModel.CITA">
+        <MappingFragment StoreEntitySet="CITA">
+          <ScalarProperty Name="dia" ColumnName="dia" />
+          <ScalarProperty Name="hora_inicio" ColumnName="hora_inicio" />
+          <ScalarProperty Name="hora_termino" ColumnName="hora_termino" />
+          <ScalarProperty Name="clave_doc" ColumnName="clave_doc" />
+          <ScalarProperty Name="expediente" ColumnName="expediente" />
+          <ScalarProperty Name="numeroCita" ColumnName="numeroCita" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DOCTOR">
+      <EntityTypeMapping TypeName="CONSULTORIOModel.DOCTOR">
+        <MappingFragment StoreEntitySet="DOCTOR">
+          <ScalarProperty Name="clave_doc" ColumnName="clave_doc" />
+          <ScalarProperty Name="contraseña" ColumnName="contraseña" />
+          <ScalarProperty Name="nombre" ColumnName="nombre" />
+          <ScalarProperty Name="apellidop" ColumnName="apellidop" />
+          <ScalarProperty Name="apellidom" ColumnName="apellidom" />
+          <ScalarProperty Name="especialidad" ColumnName="especialidad" />
+          <ScalarProperty Name="email" ColumnName="email" />
+          <ScalarProperty Name="telefono" ColumnName="telefono" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="HISTORIAL">
+      <EntityTypeMapping TypeName="CONSULTORIOModel.HISTORIAL">
+        <MappingFragment StoreEntitySet="HISTORIAL">
+          <ScalarProperty Name="fecha" ColumnName="fecha" />
+          <ScalarProperty Name="expediente" ColumnName="expediente" />
+          <ScalarProperty Name="medicamento" ColumnName="medicamento" />
+          <ScalarProperty Name="nota" ColumnName="nota" />
+          <ScalarProperty Name="entradaHist" ColumnName="entradaHist" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Logs">
+      <EntityTypeMapping TypeName="CONSULTORIOModel.Logs">
+        <MappingFragment StoreEntitySet="Logs">
+          <ScalarProperty Name="fecha" ColumnName="fecha" />
+          <ScalarProperty Name="notas" ColumnName="notas" />
+          <ScalarProperty Name="serieLogs" ColumnName="serieLogs" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="paciente">
+      <EntityTypeMapping TypeName="CONSULTORIOModel.paciente">
+        <MappingFragment StoreEntitySet="paciente">
+          <ScalarProperty Name="nombre" ColumnName="nombre" />
+          <ScalarProperty Name="apellidop" ColumnName="apellidop" />
+          <ScalarProperty Name="apellidom" ColumnName="apellidom" />
+          <ScalarProperty Name="clave_doctor" ColumnName="clave_doctor" />
+          <ScalarProperty Name="curp" ColumnName="curp" />
+          <ScalarProperty Name="sexo" ColumnName="sexo" />
+          <ScalarProperty Name="fecha_nacimiento" ColumnName="fecha_nacimiento" />
+          <ScalarProperty Name="expediente" ColumnName="expediente" />
+          <ScalarProperty Name="telefono" ColumnName="telefono" />
+          <ScalarProperty Name="email" ColumnName="email" />
+          <ScalarProperty Name="direccion" ColumnName="direccion" />
+          <ScalarProperty Name="alergias" ColumnName="alergias" />
+          <ScalarProperty Name="ciudad" ColumnName="ciudad" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="sysdiagrams">
+      <EntityTypeMapping TypeName="CONSULTORIOModel.sysdiagrams">
+        <MappingFragment StoreEntitySet="sysdiagrams">
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+          <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+          <ScalarProperty Name="version" ColumnName="version" />
+          <ScalarProperty Name="definition" ColumnName="definition" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PROXIMAS_CITAS">
+      <EntityTypeMapping TypeName="CONSULTORIOModel.PROXIMAS_CITAS">
+        <MappingFragment StoreEntitySet="PROXIMAS_CITAS">
+          <ScalarProperty Name="nombre" ColumnName="nombre" />
+          <ScalarProperty Name="sexo" ColumnName="sexo" />
+          <ScalarProperty Name="fecha_nacimiento" ColumnName="fecha_nacimiento" />
+          <ScalarProperty Name="telefono" ColumnName="telefono" />
+          <ScalarProperty Name="alergias" ColumnName="alergias" />
+          <ScalarProperty Name="dia" ColumnName="dia" />
+          <ScalarProperty Name="hora_inicio" ColumnName="hora_inicio" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="VISTA_DOCTORES">
+      <EntityTypeMapping TypeName="CONSULTORIOModel.VISTA_DOCTORES">
+        <MappingFragment StoreEntitySet="VISTA_DOCTORES">
+          <ScalarProperty Name="clave_doc" ColumnName="clave_doc" />
+          <ScalarProperty Name="contraseña" ColumnName="contraseña" />
+          <ScalarProperty Name="nombre" ColumnName="nombre" />
+          <ScalarProperty Name="apellidop" ColumnName="apellidop" />
+          <ScalarProperty Name="apellidom" ColumnName="apellidom" />
+          <ScalarProperty Name="especialidad" ColumnName="especialidad" />
+          <ScalarProperty Name="email" ColumnName="email" />
+          <ScalarProperty Name="telefono" ColumnName="telefono" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="VISTA_HISTORIAL">
+      <EntityTypeMapping TypeName="CONSULTORIOModel.VISTA_HISTORIAL">
+        <MappingFragment StoreEntitySet="VISTA_HISTORIAL">
+          <ScalarProperty Name="Nombre_del_paciente" ColumnName="Nombre del paciente" />
+          <ScalarProperty Name="fecha" ColumnName="fecha" />
+          <ScalarProperty Name="expediente" ColumnName="expediente" />
+          <ScalarProperty Name="medicamento" ColumnName="medicamento" />
+          <ScalarProperty Name="nota" ColumnName="nota" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="VISTA_HORARIO">
+      <EntityTypeMapping TypeName="CONSULTORIOModel.VISTA_HORARIO">
+        <MappingFragment StoreEntitySet="VISTA_HORARIO">
+          <ScalarProperty Name="dia" ColumnName="dia" />
+          <ScalarProperty Name="hora_inicio" ColumnName="hora_inicio" />
+          <ScalarProperty Name="hora_termino" ColumnName="hora_termino" />
+          <ScalarProperty Name="clave_doc" ColumnName="clave_doc" />
+          <ScalarProperty Name="expediente" ColumnName="expediente" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="VISTA_PACIENTES">
+      <EntityTypeMapping TypeName="CONSULTORIOModel.VISTA_PACIENTES">
+        <MappingFragment StoreEntitySet="VISTA_PACIENTES">
+          <ScalarProperty Name="Nombre_del_paciente" ColumnName="Nombre del paciente" />
+          <ScalarProperty Name="CURP" ColumnName="CURP" />
+          <ScalarProperty Name="sexo" ColumnName="sexo" />
+          <ScalarProperty Name="fecha_nacimiento" ColumnName="fecha_nacimiento" />
+          <ScalarProperty Name="Expediente" ColumnName="Expediente" />
+          <ScalarProperty Name="Telefono" ColumnName="Telefono" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Direccion" ColumnName="Direccion" />
+          <ScalarProperty Name="Alergias" ColumnName="Alergias" />
+          <ScalarProperty Name="Ciudad" ColumnName="Ciudad" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="AGREGAR_DOCTOR" FunctionName="CONSULTORIOModel.Store.AGREGAR_DOCTOR" />
+    <FunctionImportMapping FunctionImportName="AGREGAR_HISTORIAL" FunctionName="CONSULTORIOModel.Store.AGREGAR_HISTORIAL" />
+    <FunctionImportMapping FunctionImportName="AGREGAR_PACIENTE" FunctionName="CONSULTORIOModel.Store.AGREGAR_PACIENTE" />
+    <FunctionImportMapping FunctionImportName="BUSCAR_PACIENTE" FunctionName="CONSULTORIOModel.Store.BUSCAR_PACIENTE">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="CONSULTORIOModel.BUSCAR_PACIENTE_Result">
+          <ScalarProperty Name="nombre" ColumnName="nombre" />
+          <ScalarProperty Name="apellidop" ColumnName="apellidop" />
+          <ScalarProperty Name="apellidom" ColumnName="apellidom" />
+          <ScalarProperty Name="clave_doctor" ColumnName="clave_doctor" />
+          <ScalarProperty Name="curp" ColumnName="curp" />
+          <ScalarProperty Name="sexo" ColumnName="sexo" />
+          <ScalarProperty Name="fecha_nacimiento" ColumnName="fecha_nacimiento" />
+          <ScalarProperty Name="expediente" ColumnName="expediente" />
+          <ScalarProperty Name="telefono" ColumnName="telefono" />
+          <ScalarProperty Name="email" ColumnName="email" />
+          <ScalarProperty Name="direccion" ColumnName="direccion" />
+          <ScalarProperty Name="alergias" ColumnName="alergias" />
+          <ScalarProperty Name="ciudad" ColumnName="ciudad" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="ELIMINAR_CITA" FunctionName="CONSULTORIOModel.Store.ELIMINAR_CITA" />
+    <FunctionImportMapping FunctionImportName="ELIMINAR_DOCTOR" FunctionName="CONSULTORIOModel.Store.ELIMINAR_DOCTOR" />
+    <FunctionImportMapping FunctionImportName="ELIMINAR_PACIENTE" FunctionName="CONSULTORIOModel.Store.ELIMINAR_PACIENTE" />
+    <FunctionImportMapping FunctionImportName="GENERAR_CITA" FunctionName="CONSULTORIOModel.Store.GENERAR_CITA" />
+    <FunctionImportMapping FunctionImportName="sp_alterdiagram" FunctionName="CONSULTORIOModel.Store.sp_alterdiagram" />
+    <FunctionImportMapping FunctionImportName="sp_creatediagram" FunctionName="CONSULTORIOModel.Store.sp_creatediagram" />
+    <FunctionImportMapping FunctionImportName="sp_dropdiagram" FunctionName="CONSULTORIOModel.Store.sp_dropdiagram" />
+    <FunctionImportMapping FunctionImportName="sp_helpdiagramdefinition" FunctionName="CONSULTORIOModel.Store.sp_helpdiagramdefinition">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="CONSULTORIOModel.sp_helpdiagramdefinition_Result">
+          <ScalarProperty Name="version" ColumnName="version" />
+          <ScalarProperty Name="definition" ColumnName="definition" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_helpdiagrams" FunctionName="CONSULTORIOModel.Store.sp_helpdiagrams">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="CONSULTORIOModel.sp_helpdiagrams_Result">
+          <ScalarProperty Name="Database" ColumnName="Database" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Owner" ColumnName="Owner" />
+          <ScalarProperty Name="OwnerID" ColumnName="OwnerID" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="CONSULTORIOModel.Store.sp_renamediagram" />
+    <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="CONSULTORIOModel.Store.sp_upgraddiagrams" />
+  </EntityContainerMapping>
+</Mapping>

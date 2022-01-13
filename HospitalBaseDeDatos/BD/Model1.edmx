@@ -1,0 +1,920 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="CONSULTORIOModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="CITA">
+          <Key>
+            <PropertyRef Name="numeroCita" />
+          </Key>
+          <Property Name="dia" Type="date" Nullable="false" />
+          <Property Name="hora_inicio" Type="varchar" MaxLength="5" />
+          <Property Name="hora_termino" Type="varchar" MaxLength="5" />
+          <Property Name="clave_doc" Type="int" Nullable="false" />
+          <Property Name="expediente" Type="int" Nullable="false" />
+          <Property Name="numeroCita" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <EntityType Name="DOCTOR">
+          <Key>
+            <PropertyRef Name="clave_doc" />
+          </Key>
+          <Property Name="clave_doc" Type="int" Nullable="false" />
+          <Property Name="contraseña" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="apellidop" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="apellidom" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="especialidad" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="email" Type="varchar" MaxLength="40" Nullable="false" />
+          <Property Name="telefono" Type="varchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <EntityType Name="HISTORIAL">
+          <Key>
+            <PropertyRef Name="entradaHist" />
+          </Key>
+          <Property Name="fecha" Type="date" Nullable="false" />
+          <Property Name="expediente" Type="int" Nullable="false" />
+          <Property Name="medicamento" Type="varchar" MaxLength="40" Nullable="false" />
+          <Property Name="nota" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="entradaHist" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Logs">
+          <Key>
+            <PropertyRef Name="serieLogs" />
+          </Key>
+          <Property Name="fecha" Type="datetime" Nullable="false" />
+          <Property Name="notas" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="serieLogs" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <EntityType Name="paciente">
+          <Key>
+            <PropertyRef Name="expediente" />
+          </Key>
+          <Property Name="nombre" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="apellidop" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="apellidom" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="clave_doctor" Type="int" Nullable="false" />
+          <Property Name="curp" Type="varchar" MaxLength="18" Nullable="false" />
+          <Property Name="sexo" Type="varchar" MaxLength="1" Nullable="false" />
+          <Property Name="fecha_nacimiento" Type="date" Nullable="false" />
+          <Property Name="expediente" Type="int" Nullable="false" />
+          <Property Name="telefono" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="email" Type="varchar" MaxLength="40" Nullable="false" />
+          <Property Name="direccion" Type="varchar" MaxLength="40" Nullable="false" />
+          <Property Name="alergias" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="ciudad" Type="varchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'CONSULTORIO.dbo.PROXIMAS_CITAS' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+        <EntityType Name="PROXIMAS_CITAS">
+          <Key>
+            <PropertyRef Name="nombre" />
+            <PropertyRef Name="sexo" />
+            <PropertyRef Name="fecha_nacimiento" />
+            <PropertyRef Name="telefono" />
+            <PropertyRef Name="dia" />
+            <PropertyRef Name="hora_inicio" />
+          </Key>
+          <Property Name="nombre" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="sexo" Type="varchar" MaxLength="1" Nullable="false" />
+          <Property Name="fecha_nacimiento" Type="date" Nullable="false" />
+          <Property Name="telefono" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="alergias" Type="varchar" MaxLength="30" />
+          <Property Name="dia" Type="date" Nullable="false" />
+          <Property Name="hora_inicio" Type="time" Precision="7" Nullable="false" />
+        </EntityType>
+        <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'CONSULTORIO.dbo.VISTA_DOCTORES' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+        <EntityType Name="VISTA_DOCTORES">
+          <Key>
+            <PropertyRef Name="clave_doc" />
+            <PropertyRef Name="contraseña" />
+            <PropertyRef Name="nombre" />
+            <PropertyRef Name="apellidop" />
+            <PropertyRef Name="apellidom" />
+            <PropertyRef Name="especialidad" />
+            <PropertyRef Name="email" />
+            <PropertyRef Name="telefono" />
+          </Key>
+          <Property Name="clave_doc" Type="int" Nullable="false" />
+          <Property Name="contraseña" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="apellidop" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="apellidom" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="especialidad" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="email" Type="varchar" MaxLength="40" Nullable="false" />
+          <Property Name="telefono" Type="varchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'CONSULTORIO.dbo.VISTA_HISTORIAL' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+        <EntityType Name="VISTA_HISTORIAL">
+          <Key>
+            <PropertyRef Name="Nombre del paciente" />
+            <PropertyRef Name="fecha" />
+            <PropertyRef Name="expediente" />
+            <PropertyRef Name="medicamento" />
+          </Key>
+          <Property Name="Nombre del paciente" Type="varchar" MaxLength="72" Nullable="false" />
+          <Property Name="fecha" Type="date" Nullable="false" />
+          <Property Name="expediente" Type="int" Nullable="false" />
+          <Property Name="medicamento" Type="varchar" MaxLength="40" Nullable="false" />
+          <Property Name="nota" Type="varchar" MaxLength="200" />
+        </EntityType>
+        <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'CONSULTORIO.dbo.VISTA_HORARIO' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+        <EntityType Name="VISTA_HORARIO">
+          <Key>
+            <PropertyRef Name="dia" />
+            <PropertyRef Name="hora_inicio" />
+            <PropertyRef Name="clave_doc" />
+            <PropertyRef Name="expediente" />
+          </Key>
+          <Property Name="dia" Type="date" Nullable="false" />
+          <Property Name="hora_inicio" Type="time" Precision="7" Nullable="false" />
+          <Property Name="hora_termino" Type="time" Precision="7" />
+          <Property Name="clave_doc" Type="int" Nullable="false" />
+          <Property Name="expediente" Type="int" Nullable="false" />
+        </EntityType>
+        <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'CONSULTORIO.dbo.VISTA_PACIENTES' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+        <EntityType Name="VISTA_PACIENTES">
+          <Key>
+            <PropertyRef Name="Nombre del paciente" />
+            <PropertyRef Name="CURP" />
+            <PropertyRef Name="sexo" />
+            <PropertyRef Name="fecha_nacimiento" />
+            <PropertyRef Name="Expediente" />
+            <PropertyRef Name="Telefono" />
+          </Key>
+          <Property Name="Nombre del paciente" Type="varchar" MaxLength="72" Nullable="false" />
+          <Property Name="CURP" Type="varchar" MaxLength="18" Nullable="false" />
+          <Property Name="sexo" Type="varchar" MaxLength="1" Nullable="false" />
+          <Property Name="fecha_nacimiento" Type="date" Nullable="false" />
+          <Property Name="Expediente" Type="int" Nullable="false" />
+          <Property Name="Telefono" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="Email" Type="varchar" MaxLength="40" />
+          <Property Name="Direccion" Type="varchar" MaxLength="40" />
+          <Property Name="Alergias" Type="varchar" MaxLength="30" />
+          <Property Name="Ciudad" Type="varchar" MaxLength="20" />
+        </EntityType>
+        <Association Name="FK_cita_clave_doc">
+          <End Role="DOCTOR" Type="Self.DOCTOR" Multiplicity="1" />
+          <End Role="CITA" Type="Self.CITA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DOCTOR">
+              <PropertyRef Name="clave_doc" />
+            </Principal>
+            <Dependent Role="CITA">
+              <PropertyRef Name="clave_doc" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_cita_expediente">
+          <End Role="paciente" Type="Self.paciente" Multiplicity="1" />
+          <End Role="CITA" Type="Self.CITA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="paciente">
+              <PropertyRef Name="expediente" />
+            </Principal>
+            <Dependent Role="CITA">
+              <PropertyRef Name="expediente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="KF_historial_expediente">
+          <End Role="paciente" Type="Self.paciente" Multiplicity="1" />
+          <End Role="HISTORIAL" Type="Self.HISTORIAL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="paciente">
+              <PropertyRef Name="expediente" />
+            </Principal>
+            <Dependent Role="HISTORIAL">
+              <PropertyRef Name="expediente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="AGREGAR_DOCTOR" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="clave_doc" Type="int" Mode="In" />
+          <Parameter Name="contraseña" Type="varchar" Mode="In" />
+          <Parameter Name="nombre" Type="varchar" Mode="In" />
+          <Parameter Name="apellidop" Type="varchar" Mode="In" />
+          <Parameter Name="apellidom" Type="varchar" Mode="In" />
+          <Parameter Name="especialidad" Type="varchar" Mode="In" />
+          <Parameter Name="email" Type="varchar" Mode="In" />
+          <Parameter Name="telefono" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="AGREGAR_HISTORIAL" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="fecha" Type="date" Mode="In" />
+          <Parameter Name="expediente" Type="int" Mode="In" />
+          <Parameter Name="medicamento" Type="varchar" Mode="In" />
+          <Parameter Name="nota" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="AGREGAR_PACIENTE" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="nombre" Type="varchar" Mode="In" />
+          <Parameter Name="apellidop" Type="varchar" Mode="In" />
+          <Parameter Name="apellidom" Type="varchar" Mode="In" />
+          <Parameter Name="clave_doctor" Type="int" Mode="In" />
+          <Parameter Name="curp" Type="varchar" Mode="In" />
+          <Parameter Name="sexo" Type="varchar" Mode="In" />
+          <Parameter Name="fecha_nacimiento" Type="date" Mode="In" />
+          <Parameter Name="expediente" Type="int" Mode="In" />
+          <Parameter Name="telefono" Type="varchar" Mode="In" />
+          <Parameter Name="email" Type="varchar" Mode="In" />
+          <Parameter Name="direccion" Type="varchar" Mode="In" />
+          <Parameter Name="alergias" Type="varchar" Mode="In" />
+          <Parameter Name="ciudad" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="BUSCAR_PACIENTE" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="expediente" Type="int" Mode="In" />
+        </Function>
+        <Function Name="ELIMINAR_CITA" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="expediente" Type="int" Mode="In" />
+        </Function>
+        <Function Name="ELIMINAR_DOCTOR" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="clave_doc" Type="int" Mode="In" />
+        </Function>
+        <Function Name="ELIMINAR_PACIENTE" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="expediente" Type="int" Mode="In" />
+        </Function>
+        <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
+        <Function Name="GENERAR_CITA" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="dia" Type="date" Mode="In" />
+          <Parameter Name="hora_inicio" Type="time" Mode="In" />
+          <Parameter Name="hora_termino" Type="time" Mode="In" />
+          <Parameter Name="clave_doc" Type="int" Mode="In" />
+          <Parameter Name="expediente" Type="int" Mode="In" />
+        </Function>
+        <Function Name="MAYUSCULA" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="varchar">
+          <Parameter Name="PALABRA" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="PRIMERA_MAYUSCULA" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="varchar">
+          <Parameter Name="PALABRA" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="version" Type="int" Mode="In" />
+          <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+        </Function>
+        <Function Name="sp_creatediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="version" Type="int" Mode="In" />
+          <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+        </Function>
+        <Function Name="sp_dropdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_helpdiagramdefinition" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_helpdiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_renamediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="new_diagramname" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <EntityContainer Name="CONSULTORIOModelStoreContainer">
+          <EntitySet Name="CITA" EntityType="Self.CITA" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DOCTOR" EntityType="Self.DOCTOR" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="HISTORIAL" EntityType="Self.HISTORIAL" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Logs" EntityType="Self.Logs" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="paciente" EntityType="Self.paciente" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PROXIMAS_CITAS" EntityType="Self.PROXIMAS_CITAS" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [PROXIMAS_CITAS].[nombre] AS [nombre], 
+    [PROXIMAS_CITAS].[sexo] AS [sexo], 
+    [PROXIMAS_CITAS].[fecha_nacimiento] AS [fecha_nacimiento], 
+    [PROXIMAS_CITAS].[telefono] AS [telefono], 
+    [PROXIMAS_CITAS].[alergias] AS [alergias], 
+    [PROXIMAS_CITAS].[dia] AS [dia], 
+    [PROXIMAS_CITAS].[hora_inicio] AS [hora_inicio]
+    FROM [dbo].[PROXIMAS_CITAS] AS [PROXIMAS_CITAS]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="VISTA_DOCTORES" EntityType="Self.VISTA_DOCTORES" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [VISTA_DOCTORES].[clave_doc] AS [clave_doc], 
+    [VISTA_DOCTORES].[contraseña] AS [contraseña], 
+    [VISTA_DOCTORES].[nombre] AS [nombre], 
+    [VISTA_DOCTORES].[apellidop] AS [apellidop], 
+    [VISTA_DOCTORES].[apellidom] AS [apellidom], 
+    [VISTA_DOCTORES].[especialidad] AS [especialidad], 
+    [VISTA_DOCTORES].[email] AS [email], 
+    [VISTA_DOCTORES].[telefono] AS [telefono]
+    FROM [dbo].[VISTA_DOCTORES] AS [VISTA_DOCTORES]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="VISTA_HISTORIAL" EntityType="Self.VISTA_HISTORIAL" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [VISTA_HISTORIAL].[Nombre del paciente] AS [Nombre del paciente], 
+    [VISTA_HISTORIAL].[fecha] AS [fecha], 
+    [VISTA_HISTORIAL].[expediente] AS [expediente], 
+    [VISTA_HISTORIAL].[medicamento] AS [medicamento], 
+    [VISTA_HISTORIAL].[nota] AS [nota]
+    FROM [dbo].[VISTA_HISTORIAL] AS [VISTA_HISTORIAL]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="VISTA_HORARIO" EntityType="Self.VISTA_HORARIO" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [VISTA_HORARIO].[dia] AS [dia], 
+    [VISTA_HORARIO].[hora_inicio] AS [hora_inicio], 
+    [VISTA_HORARIO].[hora_termino] AS [hora_termino], 
+    [VISTA_HORARIO].[clave_doc] AS [clave_doc], 
+    [VISTA_HORARIO].[expediente] AS [expediente]
+    FROM [dbo].[VISTA_HORARIO] AS [VISTA_HORARIO]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="VISTA_PACIENTES" EntityType="Self.VISTA_PACIENTES" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [VISTA_PACIENTES].[Nombre del paciente] AS [Nombre del paciente], 
+    [VISTA_PACIENTES].[CURP] AS [CURP], 
+    [VISTA_PACIENTES].[sexo] AS [sexo], 
+    [VISTA_PACIENTES].[fecha_nacimiento] AS [fecha_nacimiento], 
+    [VISTA_PACIENTES].[Expediente] AS [Expediente], 
+    [VISTA_PACIENTES].[Telefono] AS [Telefono], 
+    [VISTA_PACIENTES].[Email] AS [Email], 
+    [VISTA_PACIENTES].[Direccion] AS [Direccion], 
+    [VISTA_PACIENTES].[Alergias] AS [Alergias], 
+    [VISTA_PACIENTES].[Ciudad] AS [Ciudad]
+    FROM [dbo].[VISTA_PACIENTES] AS [VISTA_PACIENTES]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK_cita_clave_doc" Association="Self.FK_cita_clave_doc">
+            <End Role="DOCTOR" EntitySet="DOCTOR" />
+            <End Role="CITA" EntitySet="CITA" />
+          </AssociationSet>
+          <AssociationSet Name="FK_cita_expediente" Association="Self.FK_cita_expediente">
+            <End Role="paciente" EntitySet="paciente" />
+            <End Role="CITA" EntitySet="CITA" />
+          </AssociationSet>
+          <AssociationSet Name="KF_historial_expediente" Association="Self.KF_historial_expediente">
+            <End Role="paciente" EntitySet="paciente" />
+            <End Role="HISTORIAL" EntitySet="HISTORIAL" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="CONSULTORIOModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="CITA">
+          <Key>
+            <PropertyRef Name="numeroCita" />
+          </Key>
+          <Property Name="dia" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="hora_inicio" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="hora_termino" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="clave_doc" Type="Int32" Nullable="false" />
+          <Property Name="expediente" Type="Int32" Nullable="false" />
+          <Property Name="numeroCita" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="DOCTOR" Relationship="Self.FK_cita_clave_doc" FromRole="CITA" ToRole="DOCTOR" />
+          <NavigationProperty Name="paciente" Relationship="Self.FK_cita_expediente" FromRole="CITA" ToRole="paciente" />
+        </EntityType>
+        <EntityType Name="DOCTOR">
+          <Key>
+            <PropertyRef Name="clave_doc" />
+          </Key>
+          <Property Name="clave_doc" Type="Int32" Nullable="false" />
+          <Property Name="contraseña" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="nombre" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="apellidop" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="apellidom" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="especialidad" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="email" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="telefono" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="CITA" Relationship="Self.FK_cita_clave_doc" FromRole="DOCTOR" ToRole="CITA" />
+        </EntityType>
+        <EntityType Name="HISTORIAL">
+          <Key>
+            <PropertyRef Name="entradaHist" />
+          </Key>
+          <Property Name="fecha" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="expediente" Type="Int32" Nullable="false" />
+          <Property Name="medicamento" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="nota" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="entradaHist" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="paciente" Relationship="Self.KF_historial_expediente" FromRole="HISTORIAL" ToRole="paciente" />
+        </EntityType>
+        <EntityType Name="Logs">
+          <Key>
+            <PropertyRef Name="serieLogs" />
+          </Key>
+          <Property Name="fecha" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="notas" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="serieLogs" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+        </EntityType>
+        <EntityType Name="paciente">
+          <Key>
+            <PropertyRef Name="expediente" />
+          </Key>
+          <Property Name="nombre" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="apellidop" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="apellidom" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="clave_doctor" Type="Int32" Nullable="false" />
+          <Property Name="curp" Type="String" MaxLength="18" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="sexo" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="fecha_nacimiento" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="expediente" Type="Int32" Nullable="false" />
+          <Property Name="telefono" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="email" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="direccion" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="alergias" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ciudad" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="CITA" Relationship="Self.FK_cita_expediente" FromRole="paciente" ToRole="CITA" />
+          <NavigationProperty Name="HISTORIAL" Relationship="Self.KF_historial_expediente" FromRole="paciente" ToRole="HISTORIAL" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="PROXIMAS_CITAS">
+          <Key>
+            <PropertyRef Name="nombre" />
+            <PropertyRef Name="sexo" />
+            <PropertyRef Name="fecha_nacimiento" />
+            <PropertyRef Name="telefono" />
+            <PropertyRef Name="dia" />
+            <PropertyRef Name="hora_inicio" />
+          </Key>
+          <Property Name="nombre" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="sexo" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="fecha_nacimiento" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="telefono" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="alergias" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="dia" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="hora_inicio" Type="Time" Nullable="false" Precision="7" />
+        </EntityType>
+        <EntityType Name="VISTA_DOCTORES">
+          <Key>
+            <PropertyRef Name="clave_doc" />
+            <PropertyRef Name="contraseña" />
+            <PropertyRef Name="nombre" />
+            <PropertyRef Name="apellidop" />
+            <PropertyRef Name="apellidom" />
+            <PropertyRef Name="especialidad" />
+            <PropertyRef Name="email" />
+            <PropertyRef Name="telefono" />
+          </Key>
+          <Property Name="clave_doc" Type="Int32" Nullable="false" />
+          <Property Name="contraseña" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="nombre" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="apellidop" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="apellidom" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="especialidad" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="email" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="telefono" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="VISTA_HISTORIAL">
+          <Key>
+            <PropertyRef Name="Nombre_del_paciente" />
+            <PropertyRef Name="fecha" />
+            <PropertyRef Name="expediente" />
+            <PropertyRef Name="medicamento" />
+          </Key>
+          <Property Name="Nombre_del_paciente" Type="String" MaxLength="72" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="fecha" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="expediente" Type="Int32" Nullable="false" />
+          <Property Name="medicamento" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="nota" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="VISTA_HORARIO">
+          <Key>
+            <PropertyRef Name="dia" />
+            <PropertyRef Name="hora_inicio" />
+            <PropertyRef Name="clave_doc" />
+            <PropertyRef Name="expediente" />
+          </Key>
+          <Property Name="dia" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="hora_inicio" Type="Time" Nullable="false" Precision="7" />
+          <Property Name="hora_termino" Type="Time" Precision="7" />
+          <Property Name="clave_doc" Type="Int32" Nullable="false" />
+          <Property Name="expediente" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="VISTA_PACIENTES">
+          <Key>
+            <PropertyRef Name="Nombre_del_paciente" />
+            <PropertyRef Name="CURP" />
+            <PropertyRef Name="sexo" />
+            <PropertyRef Name="fecha_nacimiento" />
+            <PropertyRef Name="Expediente" />
+            <PropertyRef Name="Telefono" />
+          </Key>
+          <Property Name="Nombre_del_paciente" Type="String" MaxLength="72" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CURP" Type="String" MaxLength="18" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="sexo" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="fecha_nacimiento" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Expediente" Type="Int32" Nullable="false" />
+          <Property Name="Telefono" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Name="Direccion" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Name="Alergias" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="Ciudad" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <Association Name="FK_cita_clave_doc">
+          <End Role="DOCTOR" Type="Self.DOCTOR" Multiplicity="1" />
+          <End Role="CITA" Type="Self.CITA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DOCTOR">
+              <PropertyRef Name="clave_doc" />
+            </Principal>
+            <Dependent Role="CITA">
+              <PropertyRef Name="clave_doc" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_cita_expediente">
+          <End Role="paciente" Type="Self.paciente" Multiplicity="1" />
+          <End Role="CITA" Type="Self.CITA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="paciente">
+              <PropertyRef Name="expediente" />
+            </Principal>
+            <Dependent Role="CITA">
+              <PropertyRef Name="expediente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="KF_historial_expediente">
+          <End Role="paciente" Type="Self.paciente" Multiplicity="1" />
+          <End Role="HISTORIAL" Type="Self.HISTORIAL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="paciente">
+              <PropertyRef Name="expediente" />
+            </Principal>
+            <Dependent Role="HISTORIAL">
+              <PropertyRef Name="expediente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="CONSULTORIOEntities1" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="CITA" EntityType="Self.CITA" />
+          <EntitySet Name="DOCTOR" EntityType="Self.DOCTOR" />
+          <EntitySet Name="HISTORIAL" EntityType="Self.HISTORIAL" />
+          <EntitySet Name="Logs" EntityType="Self.Logs" />
+          <EntitySet Name="paciente" EntityType="Self.paciente" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+          <EntitySet Name="PROXIMAS_CITAS" EntityType="Self.PROXIMAS_CITAS" />
+          <EntitySet Name="VISTA_DOCTORES" EntityType="Self.VISTA_DOCTORES" />
+          <EntitySet Name="VISTA_HISTORIAL" EntityType="Self.VISTA_HISTORIAL" />
+          <EntitySet Name="VISTA_HORARIO" EntityType="Self.VISTA_HORARIO" />
+          <EntitySet Name="VISTA_PACIENTES" EntityType="Self.VISTA_PACIENTES" />
+          <AssociationSet Name="FK_cita_clave_doc" Association="Self.FK_cita_clave_doc">
+            <End Role="DOCTOR" EntitySet="DOCTOR" />
+            <End Role="CITA" EntitySet="CITA" />
+          </AssociationSet>
+          <AssociationSet Name="FK_cita_expediente" Association="Self.FK_cita_expediente">
+            <End Role="paciente" EntitySet="paciente" />
+            <End Role="CITA" EntitySet="CITA" />
+          </AssociationSet>
+          <AssociationSet Name="KF_historial_expediente" Association="Self.KF_historial_expediente">
+            <End Role="paciente" EntitySet="paciente" />
+            <End Role="HISTORIAL" EntitySet="HISTORIAL" />
+          </AssociationSet>
+          <FunctionImport Name="AGREGAR_DOCTOR">
+            <Parameter Name="clave_doc" Mode="In" Type="Int32" />
+            <Parameter Name="contraseña" Mode="In" Type="String" />
+            <Parameter Name="nombre" Mode="In" Type="String" />
+            <Parameter Name="apellidop" Mode="In" Type="String" />
+            <Parameter Name="apellidom" Mode="In" Type="String" />
+            <Parameter Name="especialidad" Mode="In" Type="String" />
+            <Parameter Name="email" Mode="In" Type="String" />
+            <Parameter Name="telefono" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="AGREGAR_HISTORIAL">
+            <Parameter Name="fecha" Mode="In" Type="DateTime" />
+            <Parameter Name="expediente" Mode="In" Type="Int32" />
+            <Parameter Name="medicamento" Mode="In" Type="String" />
+            <Parameter Name="nota" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="AGREGAR_PACIENTE">
+            <Parameter Name="nombre" Mode="In" Type="String" />
+            <Parameter Name="apellidop" Mode="In" Type="String" />
+            <Parameter Name="apellidom" Mode="In" Type="String" />
+            <Parameter Name="clave_doctor" Mode="In" Type="Int32" />
+            <Parameter Name="curp" Mode="In" Type="String" />
+            <Parameter Name="sexo" Mode="In" Type="String" />
+            <Parameter Name="fecha_nacimiento" Mode="In" Type="DateTime" />
+            <Parameter Name="expediente" Mode="In" Type="Int32" />
+            <Parameter Name="telefono" Mode="In" Type="String" />
+            <Parameter Name="email" Mode="In" Type="String" />
+            <Parameter Name="direccion" Mode="In" Type="String" />
+            <Parameter Name="alergias" Mode="In" Type="String" />
+            <Parameter Name="ciudad" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="BUSCAR_PACIENTE" ReturnType="Collection(CONSULTORIOModel.BUSCAR_PACIENTE_Result)">
+            <Parameter Name="expediente" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="ELIMINAR_CITA">
+            <Parameter Name="expediente" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="ELIMINAR_DOCTOR">
+            <Parameter Name="clave_doc" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="ELIMINAR_PACIENTE">
+            <Parameter Name="expediente" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="GENERAR_CITA">
+            <Parameter Name="dia" Mode="In" Type="DateTime" />
+            <Parameter Name="hora_inicio" Mode="In" Type="Time" />
+            <Parameter Name="hora_termino" Mode="In" Type="Time" />
+            <Parameter Name="clave_doc" Mode="In" Type="Int32" />
+            <Parameter Name="expediente" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_alterdiagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="version" Mode="In" Type="Int32" />
+            <Parameter Name="definition" Mode="In" Type="Binary" />
+          </FunctionImport>
+          <FunctionImport Name="sp_creatediagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="version" Mode="In" Type="Int32" />
+            <Parameter Name="definition" Mode="In" Type="Binary" />
+          </FunctionImport>
+          <FunctionImport Name="sp_dropdiagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_helpdiagramdefinition" ReturnType="Collection(CONSULTORIOModel.sp_helpdiagramdefinition_Result)">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_helpdiagrams" ReturnType="Collection(CONSULTORIOModel.sp_helpdiagrams_Result)">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_renamediagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="new_diagramname" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_upgraddiagrams" />
+        </EntityContainer>
+        <ComplexType Name="BUSCAR_PACIENTE_Result">
+          <Property Type="String" Name="nombre" Nullable="false" MaxLength="30" />
+          <Property Type="String" Name="apellidop" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="apellidom" Nullable="false" MaxLength="20" />
+          <Property Type="Int32" Name="clave_doctor" Nullable="false" />
+          <Property Type="String" Name="curp" Nullable="false" MaxLength="18" />
+          <Property Type="String" Name="sexo" Nullable="false" MaxLength="1" />
+          <Property Type="DateTime" Name="fecha_nacimiento" Nullable="false" />
+          <Property Type="Int32" Name="expediente" Nullable="false" />
+          <Property Type="String" Name="telefono" Nullable="false" MaxLength="10" />
+          <Property Type="String" Name="email" Nullable="false" MaxLength="40" />
+          <Property Type="String" Name="direccion" Nullable="false" MaxLength="40" />
+          <Property Type="String" Name="alergias" Nullable="false" MaxLength="30" />
+          <Property Type="String" Name="ciudad" Nullable="false" MaxLength="20" />
+        </ComplexType>
+        <ComplexType Name="sp_helpdiagramdefinition_Result">
+          <Property Type="Int32" Name="version" Nullable="true" />
+          <Property Type="Binary" Name="definition" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="sp_helpdiagrams_Result">
+          <Property Type="String" Name="Database" Nullable="true" MaxLength="128" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="128" />
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
+          <Property Type="Int32" Name="OwnerID" Nullable="false" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="CONSULTORIOModelStoreContainer" CdmEntityContainer="CONSULTORIOEntities1">
+          <EntitySetMapping Name="CITA">
+            <EntityTypeMapping TypeName="CONSULTORIOModel.CITA">
+              <MappingFragment StoreEntitySet="CITA">
+                <ScalarProperty Name="dia" ColumnName="dia" />
+                <ScalarProperty Name="hora_inicio" ColumnName="hora_inicio" />
+                <ScalarProperty Name="hora_termino" ColumnName="hora_termino" />
+                <ScalarProperty Name="clave_doc" ColumnName="clave_doc" />
+                <ScalarProperty Name="expediente" ColumnName="expediente" />
+                <ScalarProperty Name="numeroCita" ColumnName="numeroCita" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DOCTOR">
+            <EntityTypeMapping TypeName="CONSULTORIOModel.DOCTOR">
+              <MappingFragment StoreEntitySet="DOCTOR">
+                <ScalarProperty Name="clave_doc" ColumnName="clave_doc" />
+                <ScalarProperty Name="contraseña" ColumnName="contraseña" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="apellidop" ColumnName="apellidop" />
+                <ScalarProperty Name="apellidom" ColumnName="apellidom" />
+                <ScalarProperty Name="especialidad" ColumnName="especialidad" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="telefono" ColumnName="telefono" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="HISTORIAL">
+            <EntityTypeMapping TypeName="CONSULTORIOModel.HISTORIAL">
+              <MappingFragment StoreEntitySet="HISTORIAL">
+                <ScalarProperty Name="fecha" ColumnName="fecha" />
+                <ScalarProperty Name="expediente" ColumnName="expediente" />
+                <ScalarProperty Name="medicamento" ColumnName="medicamento" />
+                <ScalarProperty Name="nota" ColumnName="nota" />
+                <ScalarProperty Name="entradaHist" ColumnName="entradaHist" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Logs">
+            <EntityTypeMapping TypeName="CONSULTORIOModel.Logs">
+              <MappingFragment StoreEntitySet="Logs">
+                <ScalarProperty Name="fecha" ColumnName="fecha" />
+                <ScalarProperty Name="notas" ColumnName="notas" />
+                <ScalarProperty Name="serieLogs" ColumnName="serieLogs" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="paciente">
+            <EntityTypeMapping TypeName="CONSULTORIOModel.paciente">
+              <MappingFragment StoreEntitySet="paciente">
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="apellidop" ColumnName="apellidop" />
+                <ScalarProperty Name="apellidom" ColumnName="apellidom" />
+                <ScalarProperty Name="clave_doctor" ColumnName="clave_doctor" />
+                <ScalarProperty Name="curp" ColumnName="curp" />
+                <ScalarProperty Name="sexo" ColumnName="sexo" />
+                <ScalarProperty Name="fecha_nacimiento" ColumnName="fecha_nacimiento" />
+                <ScalarProperty Name="expediente" ColumnName="expediente" />
+                <ScalarProperty Name="telefono" ColumnName="telefono" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="direccion" ColumnName="direccion" />
+                <ScalarProperty Name="alergias" ColumnName="alergias" />
+                <ScalarProperty Name="ciudad" ColumnName="ciudad" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="CONSULTORIOModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PROXIMAS_CITAS">
+            <EntityTypeMapping TypeName="CONSULTORIOModel.PROXIMAS_CITAS">
+              <MappingFragment StoreEntitySet="PROXIMAS_CITAS">
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="sexo" ColumnName="sexo" />
+                <ScalarProperty Name="fecha_nacimiento" ColumnName="fecha_nacimiento" />
+                <ScalarProperty Name="telefono" ColumnName="telefono" />
+                <ScalarProperty Name="alergias" ColumnName="alergias" />
+                <ScalarProperty Name="dia" ColumnName="dia" />
+                <ScalarProperty Name="hora_inicio" ColumnName="hora_inicio" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="VISTA_DOCTORES">
+            <EntityTypeMapping TypeName="CONSULTORIOModel.VISTA_DOCTORES">
+              <MappingFragment StoreEntitySet="VISTA_DOCTORES">
+                <ScalarProperty Name="clave_doc" ColumnName="clave_doc" />
+                <ScalarProperty Name="contraseña" ColumnName="contraseña" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="apellidop" ColumnName="apellidop" />
+                <ScalarProperty Name="apellidom" ColumnName="apellidom" />
+                <ScalarProperty Name="especialidad" ColumnName="especialidad" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="telefono" ColumnName="telefono" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="VISTA_HISTORIAL">
+            <EntityTypeMapping TypeName="CONSULTORIOModel.VISTA_HISTORIAL">
+              <MappingFragment StoreEntitySet="VISTA_HISTORIAL">
+                <ScalarProperty Name="Nombre_del_paciente" ColumnName="Nombre del paciente" />
+                <ScalarProperty Name="fecha" ColumnName="fecha" />
+                <ScalarProperty Name="expediente" ColumnName="expediente" />
+                <ScalarProperty Name="medicamento" ColumnName="medicamento" />
+                <ScalarProperty Name="nota" ColumnName="nota" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="VISTA_HORARIO">
+            <EntityTypeMapping TypeName="CONSULTORIOModel.VISTA_HORARIO">
+              <MappingFragment StoreEntitySet="VISTA_HORARIO">
+                <ScalarProperty Name="dia" ColumnName="dia" />
+                <ScalarProperty Name="hora_inicio" ColumnName="hora_inicio" />
+                <ScalarProperty Name="hora_termino" ColumnName="hora_termino" />
+                <ScalarProperty Name="clave_doc" ColumnName="clave_doc" />
+                <ScalarProperty Name="expediente" ColumnName="expediente" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="VISTA_PACIENTES">
+            <EntityTypeMapping TypeName="CONSULTORIOModel.VISTA_PACIENTES">
+              <MappingFragment StoreEntitySet="VISTA_PACIENTES">
+                <ScalarProperty Name="Nombre_del_paciente" ColumnName="Nombre del paciente" />
+                <ScalarProperty Name="CURP" ColumnName="CURP" />
+                <ScalarProperty Name="sexo" ColumnName="sexo" />
+                <ScalarProperty Name="fecha_nacimiento" ColumnName="fecha_nacimiento" />
+                <ScalarProperty Name="Expediente" ColumnName="Expediente" />
+                <ScalarProperty Name="Telefono" ColumnName="Telefono" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Direccion" ColumnName="Direccion" />
+                <ScalarProperty Name="Alergias" ColumnName="Alergias" />
+                <ScalarProperty Name="Ciudad" ColumnName="Ciudad" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="AGREGAR_DOCTOR" FunctionName="CONSULTORIOModel.Store.AGREGAR_DOCTOR" />
+          <FunctionImportMapping FunctionImportName="AGREGAR_HISTORIAL" FunctionName="CONSULTORIOModel.Store.AGREGAR_HISTORIAL" />
+          <FunctionImportMapping FunctionImportName="AGREGAR_PACIENTE" FunctionName="CONSULTORIOModel.Store.AGREGAR_PACIENTE" />
+          <FunctionImportMapping FunctionImportName="BUSCAR_PACIENTE" FunctionName="CONSULTORIOModel.Store.BUSCAR_PACIENTE">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CONSULTORIOModel.BUSCAR_PACIENTE_Result">
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="apellidop" ColumnName="apellidop" />
+                <ScalarProperty Name="apellidom" ColumnName="apellidom" />
+                <ScalarProperty Name="clave_doctor" ColumnName="clave_doctor" />
+                <ScalarProperty Name="curp" ColumnName="curp" />
+                <ScalarProperty Name="sexo" ColumnName="sexo" />
+                <ScalarProperty Name="fecha_nacimiento" ColumnName="fecha_nacimiento" />
+                <ScalarProperty Name="expediente" ColumnName="expediente" />
+                <ScalarProperty Name="telefono" ColumnName="telefono" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="direccion" ColumnName="direccion" />
+                <ScalarProperty Name="alergias" ColumnName="alergias" />
+                <ScalarProperty Name="ciudad" ColumnName="ciudad" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="ELIMINAR_CITA" FunctionName="CONSULTORIOModel.Store.ELIMINAR_CITA" />
+          <FunctionImportMapping FunctionImportName="ELIMINAR_DOCTOR" FunctionName="CONSULTORIOModel.Store.ELIMINAR_DOCTOR" />
+          <FunctionImportMapping FunctionImportName="ELIMINAR_PACIENTE" FunctionName="CONSULTORIOModel.Store.ELIMINAR_PACIENTE" />
+          <FunctionImportMapping FunctionImportName="GENERAR_CITA" FunctionName="CONSULTORIOModel.Store.GENERAR_CITA" />
+          <FunctionImportMapping FunctionImportName="sp_alterdiagram" FunctionName="CONSULTORIOModel.Store.sp_alterdiagram" />
+          <FunctionImportMapping FunctionImportName="sp_creatediagram" FunctionName="CONSULTORIOModel.Store.sp_creatediagram" />
+          <FunctionImportMapping FunctionImportName="sp_dropdiagram" FunctionName="CONSULTORIOModel.Store.sp_dropdiagram" />
+          <FunctionImportMapping FunctionImportName="sp_helpdiagramdefinition" FunctionName="CONSULTORIOModel.Store.sp_helpdiagramdefinition">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CONSULTORIOModel.sp_helpdiagramdefinition_Result">
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_helpdiagrams" FunctionName="CONSULTORIOModel.Store.sp_helpdiagrams">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CONSULTORIOModel.sp_helpdiagrams_Result">
+                <ScalarProperty Name="Database" ColumnName="Database" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Owner" ColumnName="Owner" />
+                <ScalarProperty Name="OwnerID" ColumnName="OwnerID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="CONSULTORIOModel.Store.sp_renamediagram" />
+          <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="CONSULTORIOModel.Store.sp_upgraddiagrams" />
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

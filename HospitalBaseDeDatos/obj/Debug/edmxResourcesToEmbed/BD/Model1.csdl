@@ -1,0 +1,329 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="CONSULTORIOModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="CITA">
+    <Key>
+      <PropertyRef Name="numeroCita" />
+    </Key>
+    <Property Name="dia" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="hora_inicio" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+    <Property Name="hora_termino" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+    <Property Name="clave_doc" Type="Int32" Nullable="false" />
+    <Property Name="expediente" Type="Int32" Nullable="false" />
+    <Property Name="numeroCita" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <NavigationProperty Name="DOCTOR" Relationship="Self.FK_cita_clave_doc" FromRole="CITA" ToRole="DOCTOR" />
+    <NavigationProperty Name="paciente" Relationship="Self.FK_cita_expediente" FromRole="CITA" ToRole="paciente" />
+  </EntityType>
+  <EntityType Name="DOCTOR">
+    <Key>
+      <PropertyRef Name="clave_doc" />
+    </Key>
+    <Property Name="clave_doc" Type="Int32" Nullable="false" />
+    <Property Name="contraseña" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="nombre" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="apellidop" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="apellidom" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="especialidad" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="email" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="telefono" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="CITA" Relationship="Self.FK_cita_clave_doc" FromRole="DOCTOR" ToRole="CITA" />
+  </EntityType>
+  <EntityType Name="HISTORIAL">
+    <Key>
+      <PropertyRef Name="entradaHist" />
+    </Key>
+    <Property Name="fecha" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="expediente" Type="Int32" Nullable="false" />
+    <Property Name="medicamento" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="nota" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="entradaHist" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <NavigationProperty Name="paciente" Relationship="Self.KF_historial_expediente" FromRole="HISTORIAL" ToRole="paciente" />
+  </EntityType>
+  <EntityType Name="Logs">
+    <Key>
+      <PropertyRef Name="serieLogs" />
+    </Key>
+    <Property Name="fecha" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="notas" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="serieLogs" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+  </EntityType>
+  <EntityType Name="paciente">
+    <Key>
+      <PropertyRef Name="expediente" />
+    </Key>
+    <Property Name="nombre" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="apellidop" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="apellidom" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="clave_doctor" Type="Int32" Nullable="false" />
+    <Property Name="curp" Type="String" MaxLength="18" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="sexo" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="fecha_nacimiento" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="expediente" Type="Int32" Nullable="false" />
+    <Property Name="telefono" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="email" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="direccion" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="alergias" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="ciudad" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="CITA" Relationship="Self.FK_cita_expediente" FromRole="paciente" ToRole="CITA" />
+    <NavigationProperty Name="HISTORIAL" Relationship="Self.KF_historial_expediente" FromRole="paciente" ToRole="HISTORIAL" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="PROXIMAS_CITAS">
+    <Key>
+      <PropertyRef Name="nombre" />
+      <PropertyRef Name="sexo" />
+      <PropertyRef Name="fecha_nacimiento" />
+      <PropertyRef Name="telefono" />
+      <PropertyRef Name="dia" />
+      <PropertyRef Name="hora_inicio" />
+    </Key>
+    <Property Name="nombre" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="sexo" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="fecha_nacimiento" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="telefono" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="alergias" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="dia" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="hora_inicio" Type="Time" Nullable="false" Precision="7" />
+  </EntityType>
+  <EntityType Name="VISTA_DOCTORES">
+    <Key>
+      <PropertyRef Name="clave_doc" />
+      <PropertyRef Name="contraseña" />
+      <PropertyRef Name="nombre" />
+      <PropertyRef Name="apellidop" />
+      <PropertyRef Name="apellidom" />
+      <PropertyRef Name="especialidad" />
+      <PropertyRef Name="email" />
+      <PropertyRef Name="telefono" />
+    </Key>
+    <Property Name="clave_doc" Type="Int32" Nullable="false" />
+    <Property Name="contraseña" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="nombre" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="apellidop" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="apellidom" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="especialidad" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="email" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="telefono" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+  </EntityType>
+  <EntityType Name="VISTA_HISTORIAL">
+    <Key>
+      <PropertyRef Name="Nombre_del_paciente" />
+      <PropertyRef Name="fecha" />
+      <PropertyRef Name="expediente" />
+      <PropertyRef Name="medicamento" />
+    </Key>
+    <Property Name="Nombre_del_paciente" Type="String" MaxLength="72" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="fecha" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="expediente" Type="Int32" Nullable="false" />
+    <Property Name="medicamento" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="nota" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="VISTA_HORARIO">
+    <Key>
+      <PropertyRef Name="dia" />
+      <PropertyRef Name="hora_inicio" />
+      <PropertyRef Name="clave_doc" />
+      <PropertyRef Name="expediente" />
+    </Key>
+    <Property Name="dia" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="hora_inicio" Type="Time" Nullable="false" Precision="7" />
+    <Property Name="hora_termino" Type="Time" Precision="7" />
+    <Property Name="clave_doc" Type="Int32" Nullable="false" />
+    <Property Name="expediente" Type="Int32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="VISTA_PACIENTES">
+    <Key>
+      <PropertyRef Name="Nombre_del_paciente" />
+      <PropertyRef Name="CURP" />
+      <PropertyRef Name="sexo" />
+      <PropertyRef Name="fecha_nacimiento" />
+      <PropertyRef Name="Expediente" />
+      <PropertyRef Name="Telefono" />
+    </Key>
+    <Property Name="Nombre_del_paciente" Type="String" MaxLength="72" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="CURP" Type="String" MaxLength="18" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="sexo" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="fecha_nacimiento" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="Expediente" Type="Int32" Nullable="false" />
+    <Property Name="Telefono" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Email" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+    <Property Name="Direccion" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+    <Property Name="Alergias" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="Ciudad" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <Association Name="FK_cita_clave_doc">
+    <End Role="DOCTOR" Type="Self.DOCTOR" Multiplicity="1" />
+    <End Role="CITA" Type="Self.CITA" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="DOCTOR">
+        <PropertyRef Name="clave_doc" />
+      </Principal>
+      <Dependent Role="CITA">
+        <PropertyRef Name="clave_doc" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_cita_expediente">
+    <End Role="paciente" Type="Self.paciente" Multiplicity="1" />
+    <End Role="CITA" Type="Self.CITA" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="paciente">
+        <PropertyRef Name="expediente" />
+      </Principal>
+      <Dependent Role="CITA">
+        <PropertyRef Name="expediente" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="KF_historial_expediente">
+    <End Role="paciente" Type="Self.paciente" Multiplicity="1" />
+    <End Role="HISTORIAL" Type="Self.HISTORIAL" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="paciente">
+        <PropertyRef Name="expediente" />
+      </Principal>
+      <Dependent Role="HISTORIAL">
+        <PropertyRef Name="expediente" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="CONSULTORIOEntities1" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="CITA" EntityType="Self.CITA" />
+    <EntitySet Name="DOCTOR" EntityType="Self.DOCTOR" />
+    <EntitySet Name="HISTORIAL" EntityType="Self.HISTORIAL" />
+    <EntitySet Name="Logs" EntityType="Self.Logs" />
+    <EntitySet Name="paciente" EntityType="Self.paciente" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+    <EntitySet Name="PROXIMAS_CITAS" EntityType="Self.PROXIMAS_CITAS" />
+    <EntitySet Name="VISTA_DOCTORES" EntityType="Self.VISTA_DOCTORES" />
+    <EntitySet Name="VISTA_HISTORIAL" EntityType="Self.VISTA_HISTORIAL" />
+    <EntitySet Name="VISTA_HORARIO" EntityType="Self.VISTA_HORARIO" />
+    <EntitySet Name="VISTA_PACIENTES" EntityType="Self.VISTA_PACIENTES" />
+    <AssociationSet Name="FK_cita_clave_doc" Association="Self.FK_cita_clave_doc">
+      <End Role="DOCTOR" EntitySet="DOCTOR" />
+      <End Role="CITA" EntitySet="CITA" />
+    </AssociationSet>
+    <AssociationSet Name="FK_cita_expediente" Association="Self.FK_cita_expediente">
+      <End Role="paciente" EntitySet="paciente" />
+      <End Role="CITA" EntitySet="CITA" />
+    </AssociationSet>
+    <AssociationSet Name="KF_historial_expediente" Association="Self.KF_historial_expediente">
+      <End Role="paciente" EntitySet="paciente" />
+      <End Role="HISTORIAL" EntitySet="HISTORIAL" />
+    </AssociationSet>
+    <FunctionImport Name="AGREGAR_DOCTOR">
+      <Parameter Name="clave_doc" Mode="In" Type="Int32" />
+      <Parameter Name="contraseña" Mode="In" Type="String" />
+      <Parameter Name="nombre" Mode="In" Type="String" />
+      <Parameter Name="apellidop" Mode="In" Type="String" />
+      <Parameter Name="apellidom" Mode="In" Type="String" />
+      <Parameter Name="especialidad" Mode="In" Type="String" />
+      <Parameter Name="email" Mode="In" Type="String" />
+      <Parameter Name="telefono" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="AGREGAR_HISTORIAL">
+      <Parameter Name="fecha" Mode="In" Type="DateTime" />
+      <Parameter Name="expediente" Mode="In" Type="Int32" />
+      <Parameter Name="medicamento" Mode="In" Type="String" />
+      <Parameter Name="nota" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="AGREGAR_PACIENTE">
+      <Parameter Name="nombre" Mode="In" Type="String" />
+      <Parameter Name="apellidop" Mode="In" Type="String" />
+      <Parameter Name="apellidom" Mode="In" Type="String" />
+      <Parameter Name="clave_doctor" Mode="In" Type="Int32" />
+      <Parameter Name="curp" Mode="In" Type="String" />
+      <Parameter Name="sexo" Mode="In" Type="String" />
+      <Parameter Name="fecha_nacimiento" Mode="In" Type="DateTime" />
+      <Parameter Name="expediente" Mode="In" Type="Int32" />
+      <Parameter Name="telefono" Mode="In" Type="String" />
+      <Parameter Name="email" Mode="In" Type="String" />
+      <Parameter Name="direccion" Mode="In" Type="String" />
+      <Parameter Name="alergias" Mode="In" Type="String" />
+      <Parameter Name="ciudad" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="BUSCAR_PACIENTE" ReturnType="Collection(CONSULTORIOModel.BUSCAR_PACIENTE_Result)">
+      <Parameter Name="expediente" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="ELIMINAR_CITA">
+      <Parameter Name="expediente" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="ELIMINAR_DOCTOR">
+      <Parameter Name="clave_doc" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="ELIMINAR_PACIENTE">
+      <Parameter Name="expediente" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="GENERAR_CITA">
+      <Parameter Name="dia" Mode="In" Type="DateTime" />
+      <Parameter Name="hora_inicio" Mode="In" Type="Time" />
+      <Parameter Name="hora_termino" Mode="In" Type="Time" />
+      <Parameter Name="clave_doc" Mode="In" Type="Int32" />
+      <Parameter Name="expediente" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_alterdiagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="version" Mode="In" Type="Int32" />
+      <Parameter Name="definition" Mode="In" Type="Binary" />
+    </FunctionImport>
+    <FunctionImport Name="sp_creatediagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="version" Mode="In" Type="Int32" />
+      <Parameter Name="definition" Mode="In" Type="Binary" />
+    </FunctionImport>
+    <FunctionImport Name="sp_dropdiagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_helpdiagramdefinition" ReturnType="Collection(CONSULTORIOModel.sp_helpdiagramdefinition_Result)">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_helpdiagrams" ReturnType="Collection(CONSULTORIOModel.sp_helpdiagrams_Result)">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_renamediagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="new_diagramname" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_upgraddiagrams" />
+  </EntityContainer>
+  <ComplexType Name="BUSCAR_PACIENTE_Result">
+    <Property Type="String" Name="nombre" Nullable="false" MaxLength="30" />
+    <Property Type="String" Name="apellidop" Nullable="false" MaxLength="20" />
+    <Property Type="String" Name="apellidom" Nullable="false" MaxLength="20" />
+    <Property Type="Int32" Name="clave_doctor" Nullable="false" />
+    <Property Type="String" Name="curp" Nullable="false" MaxLength="18" />
+    <Property Type="String" Name="sexo" Nullable="false" MaxLength="1" />
+    <Property Type="DateTime" Name="fecha_nacimiento" Nullable="false" />
+    <Property Type="Int32" Name="expediente" Nullable="false" />
+    <Property Type="String" Name="telefono" Nullable="false" MaxLength="10" />
+    <Property Type="String" Name="email" Nullable="false" MaxLength="40" />
+    <Property Type="String" Name="direccion" Nullable="false" MaxLength="40" />
+    <Property Type="String" Name="alergias" Nullable="false" MaxLength="30" />
+    <Property Type="String" Name="ciudad" Nullable="false" MaxLength="20" />
+  </ComplexType>
+  <ComplexType Name="sp_helpdiagramdefinition_Result">
+    <Property Type="Int32" Name="version" Nullable="true" />
+    <Property Type="Binary" Name="definition" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="sp_helpdiagrams_Result">
+    <Property Type="String" Name="Database" Nullable="true" MaxLength="128" />
+    <Property Type="String" Name="Name" Nullable="false" MaxLength="128" />
+    <Property Type="Int32" Name="ID" Nullable="false" />
+    <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
+    <Property Type="Int32" Name="OwnerID" Nullable="false" />
+  </ComplexType>
+</Schema>
